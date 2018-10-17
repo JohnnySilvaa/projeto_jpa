@@ -10,12 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@DynamicUpdate(true)
 public class Produto {
 
 	@Id
@@ -32,6 +35,9 @@ public class Produto {
 
 	@Min(20)
 	private double preco;
+
+	@Version
+	private Integer versao;
 
 	@ManyToMany
 	private List<Categoria> categorias = new ArrayList<>();
@@ -100,6 +106,14 @@ public class Produto {
 
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
+	}
+
+	public Integer getVersao() {
+		return versao;
+	}
+
+	public void setVersao(Integer versao) {
+		this.versao = versao;
 	}
 
 }
